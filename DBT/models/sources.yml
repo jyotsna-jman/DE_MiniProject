@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: project_source
+    database: DE_MINIPROJECT_DB
+    schema: RAW
+    tables:
+      - name: TRANSACTIONS
+      - name: CUSTOMERS
+      - name: PRODUCTS
+      - name: COUNTRY_REGION
+
+        
