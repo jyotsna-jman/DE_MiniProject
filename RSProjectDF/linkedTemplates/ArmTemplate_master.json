@@ -1,0 +1,98 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "RSProjectDF"
+		},
+		"LSSnowflake_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LSSnowflake'"
+		},
+		"LSSqlServer_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LSSqlServer'"
+		},
+		"LSSnowflake_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "DE_MINIPROJECT_DB"
+		},
+		"LSSnowflake_properties_typeProperties_role": {
+			"type": "string",
+			"defaultValue": "ACCOUNTADMIN"
+		},
+		"LSSqlServer_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "JM-DKT-061"
+		},
+		"LSSqlServer_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "Ride_Sharing_DB"
+		},
+		"LSSqlServer_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sa"
+		},
+		"LS_Blob_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'LS_Blob'"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "RSProjectDF_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LSSnowflake_password": {
+						"value": "[parameters('LSSnowflake_password')]"
+					},
+					"LSSqlServer_password": {
+						"value": "[parameters('LSSqlServer_password')]"
+					},
+					"LSSnowflake_properties_typeProperties_database": {
+						"value": "[parameters('LSSnowflake_properties_typeProperties_database')]"
+					},
+					"LSSnowflake_properties_typeProperties_role": {
+						"value": "[parameters('LSSnowflake_properties_typeProperties_role')]"
+					},
+					"LS_Blob_sasUri": {
+						"value": "[parameters('LS_Blob_sasUri')]"
+					},
+					"LSSqlServer_properties_typeProperties_server": {
+						"value": "[parameters('LSSqlServer_properties_typeProperties_server')]"
+					},
+					"LSSqlServer_properties_typeProperties_database": {
+						"value": "[parameters('LSSqlServer_properties_typeProperties_database')]"
+					},
+					"LSSqlServer_properties_typeProperties_userName": {
+						"value": "[parameters('LSSqlServer_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
